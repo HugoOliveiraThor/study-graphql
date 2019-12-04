@@ -1,21 +1,25 @@
 const {ApolloServer, gql} = require('apollo-server')
+const { importSchema } = require('graphql-import')
 
 const usuarios = [{
     id:1,
     nome:'Hugo Oliveira',
     email: 'hugo@gmail.com',
-    idade: 29    
+    idade: 29,
+    perfil_id: 1    
 },{
     id:2,
     nome:'João Carlos',
     email: 'joao@gmail.com',
-    idade: 29
+    idade: 29,
+    perfil_id: 2
 },
   {
     id:3,
     nome:'Martinho Oliveira',
     email: 'martinho@gmail.com',
-    idade: 29
+    idade: 29,
+    perfil_id: 1
   }
 ]
 
@@ -30,45 +34,6 @@ const perfis = [
     }
 ]
 
-const typeDefs = gql`
-    scalar Date
-
-    type Usuario {
-        id: Int
-        nome: String!
-        email: String!
-        idade: Int
-        salario: Float
-        vip: Boolean
-    }
-
-    type Produto {
-        nome: String!,
-        preco: Float!,
-        desconto:Float,
-        precoComDesconto:Float
-    }
-
-    type Perfil {
-        id: Int
-        nome: String
-    }
-
-
-    # Pontos de entrada da sua API! #
-    type Query {
-        ola: String
-        horaAtual: Date,
-        usuarioLogado: Usuario,
-        produtoEmDestaque: Produto
-        numerosMegaSena: [Int!]!
-        usuarios: [Usuario]
-        usuario(id: Int): Usuario
-        perfis: [Perfil]
-        perfil(id: Int): Perfil
-    }
-
-`
 
 
 const resolvers = {
@@ -76,6 +41,10 @@ const resolvers = {
     Usuario: {
         salario(usuario) {
             return usuario.salario_real
+        },
+        perfil(usuario) {
+            const selecionados = perfis.filter(perfil => perfil.id === usuario.id)
+            return selecionados ? selecionados[0] : null  
         }
     },
     Produto: {
@@ -129,7 +98,7 @@ const resolvers = {
         perfis() {
             return perfis
         },
-        perfil(_,{id}) {
+        perfil(_, { id }) {
             const selecionados = perfis.filter(perfil => perfil.id === id)
             return selecionados ? selecionados[0] : null
         }
@@ -138,7 +107,7 @@ const resolvers = {
 
 
 const server = new ApolloServer({
-    typeDefs,
+    typeDefs: importSchema('./schema/index.graphql'),
     resolvers
 })
 
