@@ -1,24 +1,10 @@
-#import Usuario, Perfil from 'usuario.graphql'
+#import Usuario, Perfil from 'Usuario.graphql'
+#import Query from 'Query.graphql'
+#import Produto from 'Produto.graphql'
 scalar Date
 
-type Produto {
-  nome: String!
-  preco: Float!
-  desconto: Float
-  precoComDesconto: Float
-}
 
 
 
-# Pontos de entrada da sua API! #
-type Query {
-  ola: String
-  horaAtual: Date
-  usuarioLogado: Usuario
-  produtoEmDestaque: Produto
-  numerosMegaSena: [Int!]!
-  usuarios: [Usuario]
-  usuario(id: Int): Usuario
-  perfis: [Perfil]
-  perfil(id: Int): Perfil
-}
+
+
