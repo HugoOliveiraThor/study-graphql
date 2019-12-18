@@ -6,9 +6,16 @@ type Usuario {
   salario: Float
   vip: Boolean
   perfil: Perfil
+  status: UsuarioStatus
 }
 
 type Perfil {
   id: Int
   nome: String
+}
+
+enum UsuarioStatus {
+  ATIVO
+  BLOQUEADO
+  INATIVO
 }
