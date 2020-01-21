@@ -34,4 +34,8 @@ const perfis = [
     }
 ]
 
-module.exports = {usuarios , perfis}
+const proximoId = () => {
+  return Math.floor(Math.random() * 10)
+}
+
+module.exports = {usuarios , perfis, proximoId}
