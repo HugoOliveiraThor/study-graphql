@@ -19,3 +19,14 @@ enum UsuarioStatus {
   BLOQUEADO
   INATIVO
 }
+
+input UsuarioInput {
+  nome: String, 
+  email: String,
+  idade: Int
+}
+
+input UsuarioFiltro {
+  id: Int
+  email: String
+}
