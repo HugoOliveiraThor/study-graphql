@@ -30,3 +30,8 @@ input UsuarioFiltro {
   id: Int
   email: String
 }
+
+input PerfilFiltro {
+  id: Int
+  
+}
